@@ -2,7 +2,7 @@
 
 FROM ubuntu:14.04
 
-MAINTAINER Mobile Builds Eng "mobile-builds-eng@uber.com"
+MAINTAINER Rogerio Angeliski "angeliski@hotmail.com"
 
 # Sets language to UTF8 : this works in pretty much all cases
 ENV LANG en_US.UTF-8
@@ -58,7 +58,7 @@ RUN apt-get install -y \
   npm \
   nodejs \
   nodejs-legacy \
-  s3cmd 
+  s3cmd \
   --no-install-recommends
 
 # Install Java
