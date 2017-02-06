@@ -115,6 +115,9 @@ RUN npm install -g npm@latest cordova ionic gulp bower grunt phonegap && npm cac
 # Cleaning
 RUN apt-get clean
 
+# Create dummy app to build and preload gradle and maven dependencies
+RUN cd / && echo 'n' | ionic project app && cd /project && ionic platform add android && ionic build android && rm -rf * .??* && rm /root/.android/debug.keystore
+
 # Add build user account, values are set to default below
 ENV RUN_USER mobileci
 ENV RUN_UID 5089
@@ -139,7 +142,4 @@ WORKDIR $PROJECT
 USER $RUN_USER
 RUN echo "sdk.dir=$ANDROID_HOME" > local.properties
 
-
-# Create dummy app to build and preload gradle and maven dependencies
-RUN cd / && echo 'n' | ionic start app && cd /project && ionic platform add android && ionic build android && rm -rf * .??* && rm /root/.android/debug.keystore
 WORKDIR /project
