@@ -1,6 +1,6 @@
 # Android Dockerfile
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 MAINTAINER Rogerio Angeliski "angeliski@hotmail.com"
 
@@ -19,6 +19,9 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get update
 RUN apt-get dist-upgrade -y
 
+RUN dpkg --add-architecture i386
+RUN apt-get update
+
 # Installing packages
 RUN apt-get install -y \
   autoconf \
@@ -32,7 +35,10 @@ RUN apt-get install -y \
   lib32z1 \
   lib32z1-dev \
   lib32ncurses5 \
-  lib32bz2-1.0 \
+  libz1:i386 \
+  libncurses5:i386 \
+  libbz2-1.0:i386 \
+  libstdc++6:i386 \
   libc6-dev \
   libgmp-dev \
   libmpc-dev \
@@ -53,8 +59,6 @@ RUN apt-get install -y \
   zip \
   zlib1g-dev \
   git \
-  lib32stdc++6 \
-  lib32z1 \
   npm \
   nodejs \
   nodejs-legacy \
