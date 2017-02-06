@@ -106,7 +106,7 @@ ENV JAVA_OPTS "-Xms4096m -Xmx4096m"
 ENV GRADLE_OPTS "-XX:+UseG1GC -XX:MaxGCPauseMillis=1000"
 
 # Install npm packages
-RUN npm i -g cordova ionic gulp bower grunt phonegap && npm cache clean
+RUN npm install -g npm@latest cordova ionic gulp bower grunt phonegap && npm cache clean
 
 # Cleaning
 RUN apt-get clean
