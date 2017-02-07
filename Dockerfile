@@ -106,7 +106,6 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
 # Support Gradle
 ENV TERM dumb
-ENV JAVA_OPTS "-Xms4096m -Xmx4096m"
 ENV GRADLE_OPTS "-XX:+UseG1GC -XX:MaxGCPauseMillis=1000"
 
 # Install npm packages
@@ -135,7 +134,6 @@ RUN chmod -R a+rx $ANDROID_HOME $ANDROID_SDK_HOME
 # Creating project directories prepared for build when running
 # `docker run`
 ENV PROJECT /project
-RUN mkdir $PROJECT
 RUN chown -R $RUN_USER:$RUN_USER $PROJECT
 WORKDIR $PROJECT
 
