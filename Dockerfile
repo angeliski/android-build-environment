@@ -61,7 +61,7 @@ RUN apt-get install -y \
   git \
   s3cmd \
   build-essential \
-  libssl-dev
+  libssl-dev \
   --no-install-recommends
   
 RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
