@@ -63,11 +63,19 @@ RUN apt-get install -y \
   build-essential \
   libssl-dev \
   --no-install-recommends
-  
-RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
-RUN export NVM_DIR="$HOME/.nvm"
-RUN $NVM_DIR/nvm.sh
-RUN nvm install 6.0.0
+
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION 6.0.0
+
+# Install nvm with node and npm
+RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash \
+    && source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
+
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
 # Install Java
 RUN apt-add-repository ppa:openjdk-r/ppa
