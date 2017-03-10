@@ -66,7 +66,7 @@ RUN apt-get install -y \
   
 RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
 RUN export NVM_DIR="$HOME/.nvm"
-RUN [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
+RUN $NVM_DIR/nvm.sh
 RUN nvm install 6.0.0
 
 # Install Java
