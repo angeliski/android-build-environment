@@ -117,14 +117,10 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 ENV TERM dumb
 ENV GRADLE_OPTS "-XX:+UseG1GC -XX:MaxGCPauseMillis=1000"
 
-# Install npm packages
-RUN npm install -g npm@latest cordova ionic gulp bower grunt phonegap && npm cache clean
-
 # Cleaning
 RUN apt-get clean
 
-# Create dummy app to build and preload gradle and maven dependencies
-RUN cd / && echo 'n' | ionic start --v2 project && cd /project && ionic platform add android && ionic build android && rm -rf * .??* 
+RUN mkdir  /project
 
 # Add build user account, values are set to default below
 ENV RUN_USER mobileci
