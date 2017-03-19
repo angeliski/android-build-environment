@@ -59,20 +59,11 @@ RUN apt-get install -y \
   zip \
   zlib1g-dev \
   git \
+  npm \
+  nodejs \
+  nodejs-legacy \
   s3cmd \
-  build-essential \
-  libssl-dev \
   --no-install-recommends
-
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 6.10.0
-
-# Install nvm with node and npm
-RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash \
-    && . "$NVM_DIR/nvm.sh" \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
 
 # Install Java
 RUN apt-add-repository ppa:openjdk-r/ppa
@@ -117,10 +108,14 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 ENV TERM dumb
 ENV GRADLE_OPTS "-XX:+UseG1GC -XX:MaxGCPauseMillis=1000"
 
+# Install npm packages
+RUN npm install -g npm@latest cordova ionic gulp bower grunt phonegap && npm cache clean
+
 # Cleaning
 RUN apt-get clean
 
-RUN mkdir  /project
+# Create dummy app to build and preload gradle and maven dependencies
+RUN cd / && echo 'n' | ionic start --v2 project && cd /project && ionic platform add android && ionic build android && rm -rf * .??* 
 
 # Add build user account, values are set to default below
 ENV RUN_USER mobileci
