@@ -80,10 +80,11 @@ RUN tar -xvzf android-sdk_r24.4.1-linux.tgz
 RUN mv android-sdk-linux /usr/local/android-sdk
 RUN rm android-sdk_r24.4.1-linux.tgz
 
-#ENV ANDROID_COMPONENTS platform-tools,android-25,build-tools-25.0.0
+
+ENV ANDROID_COMPONENTS platform-tools,android-25,build-tools-25.0.0,extra,tool
 
 # Install Android tools
-RUN echo y | /usr/local/android-sdk/tools/android update sdk --all --no-ui -a
+RUN echo y | /usr/local/android-sdk/tools/android update sdk --filter "${ANDROID_COMPONENTS}" --no-ui -a
 
 # Install Android NDK
 # RUN wget http://dl.google.com/android/repository/android-ndk-r12-linux-x86_64.zip
