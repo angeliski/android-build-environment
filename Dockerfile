@@ -126,7 +126,5 @@ WORKDIR $PROJECT
 
 USER $RUN_USER
 RUN echo "sdk.dir=$ANDROID_HOME" > local.properties
-# Cleaning
-RUN apt-get clean
 
 WORKDIR /project
